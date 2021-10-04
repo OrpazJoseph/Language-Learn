@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Language-Learn</string>
+    <string name="start_game">Start Game</string>
+    <string name="view_score_table">View Score Table</string>
+    <string name="score_table">Score Table</string>
+
+</resources>
