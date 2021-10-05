@@ -3,5 +3,17 @@
     <string name="start_game">Start Game</string>
     <string name="view_score_table">View Score Table</string>
     <string name="score_table">Score Table</string>
+    <string name="user_name">Name</string>
+    <string name="sign_out">Sign Out From Firebase</string>
+    <string name="score">Score</string>
+    <string name="learn_english">Learn English</string>
+    <string name="your_name">YourName</string>
+    <string name="enter_name">Please enter your name:</string>
+    <string name="hello">Hello</string>
+    <string name="name">Name</string>
+    <string name="create_card">Create a Card</string>
+    <string name="sign_out_button">Sign Out</string>
+    <string name="enter_a_word">Enter a Word</string>
+    <string name="enter_translation">Enter Translation</string>
 
 </resources>

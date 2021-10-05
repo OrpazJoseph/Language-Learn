@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "229697121090",
+    "project_id": "language-learn-a18de",
+    "storage_bucket": "language-learn-a18de.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:229697121090:android:a8ceac0d003c9d4a3d36db",
+        "android_client_info": {
+          "package_name": "il.ac.hit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "229697121090-mnqc3nnmqfs8t4vr5tjbgjkm20ce82g4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDSSgL4mMi4ubWpssOmEtwjaqsP3-We4l4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "229697121090-mnqc3nnmqfs8t4vr5tjbgjkm20ce82g4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

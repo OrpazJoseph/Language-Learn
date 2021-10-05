@@ -2,13 +2,14 @@ package il.ac.hit;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 public class GameActivity extends AppCompatActivity {
-    private TextView textView;
+//    private TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,9 +17,15 @@ public class GameActivity extends AppCompatActivity {
         //userName = findViewById(R.id.input);
         setContentView(R.layout.activity_game);
         setTitle(R.string.start_game);
-        Intent intent = getIntent();
-        String userName = intent.getStringExtra(MainActivity.INPUT_DATA_KEY);
-        textView = findViewById(R.id.inputUserName);
-        textView.setText(userName);
+        //Intent intent = getIntent();
+//        String userName = intent.getStringExtra(MainActivity.INPUT_DATA_KEY);
+//        textView = findViewById(R.id.inputUserName);
+//        textView.setText(userName);
     }
+
+    public void createACard(View view) {
+        Intent createACard = new Intent(this, CreateCardActivity.class);
+        startActivity(createACard);
+    }
+
 }

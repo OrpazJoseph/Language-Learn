@@ -23,6 +23,13 @@
             android:parentActivityName=".MainActivity">
 
         </activity>
+
+        <activity android:name=".CreateCardActivity"
+            android:label="CreateCardActivity"
+            android:parentActivityName=".GameActivity">
+
+        </activity>
+
         <activity android:name=".ScoreActivity"
             android:label="ScoreActivity"
             android:parentActivityName=".MainActivity">
