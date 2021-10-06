@@ -4,28 +4,41 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.Locale;
+
 public class MainActivity extends AppCompatActivity {
-//    private EditText userName;
-//    static final String INPUT_DATA_KEY = "MainActivity.INPUT_DATA_KEY";
     private static final int SIGN_IN_CREATE = 1;
-    private static final int SIGN_IN_SIGNOUT = 2;
+    private static final int SIGN_IN_SIGN_OUT = 2;
+
+    public enum languageChoosing{
+        Hebrew,
+        English
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        loadlocale();
         setContentView(R.layout.activity_main);
-//        userName = findViewById(R.id.inputUserName);
+        Button changeLanguage = findViewById(R.id.change_language);
+        changeLanguage.setOnClickListener(v -> showChangeLanguagueDialog());
         if (FirebaseAuth.getInstance().getCurrentUser() == null) {
             Intent signUp = AuthUI.getInstance().createSignInIntentBuilder().build();
             startActivityForResult(signUp, SIGN_IN_CREATE);
@@ -33,7 +46,48 @@ public class MainActivity extends AppCompatActivity {
             showDetails(true);
         }
     }
-//
+
+    private void showChangeLanguagueDialog() {
+        final String[] languageItems =  {"English", "עברית"};
+        AlertDialog.Builder languageDialog = new AlertDialog.Builder(this);
+        languageDialog.setTitle("Please Choose Language");
+        languageDialog.setSingleChoiceItems(languageItems, -1, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if(which == languageChoosing.Hebrew.ordinal()){
+                    setLocale("en");
+                    recreate();
+                }
+                if(which == languageChoosing.English.ordinal()){
+                    setLocale("he");
+                    recreate();
+                }
+                dialog.dismiss();
+            }
+        });
+        AlertDialog myDialog = languageDialog.create();
+        myDialog.show();
+    }
+
+    private void setLocale(String lang) {
+        Locale locale = new Locale(lang);
+        Locale.setDefault(locale);
+        Configuration configuration = new Configuration();
+        configuration.locale = locale;
+        getBaseContext().getResources()
+                .updateConfiguration(configuration, getBaseContext().getResources().getDisplayMetrics());
+        SharedPreferences.Editor editor = getSharedPreferences("Settings", MODE_PRIVATE).edit();
+        editor.putString("My_Lang", lang);
+        editor.apply();
+    }
+
+    public void loadlocale(){
+        SharedPreferences preferences = getSharedPreferences("Settings", Activity.MODE_PRIVATE);
+        String language = preferences.getString("My_Lang", "");
+        setLocale(language);
+    }
+
+    //
 //    FirebaseDatabase database = FirebaseDatabase.getInstance();
 //    DatabaseReference myRef = database.getReference("message");
 //
@@ -50,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
                 finish();
             }
         }
-        if (requestCode == SIGN_IN_SIGNOUT){
+        if (requestCode == SIGN_IN_SIGN_OUT){
             // TODO: Check why crashing after re-sign-in
             if (resultCode == RESULT_OK){
                 showDetails(true);
@@ -74,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
     }
     private void afterSignOut(){
         Intent signUp = AuthUI.getInstance().createSignInIntentBuilder().build();
-        startActivityForResult(signUp, SIGN_IN_SIGNOUT);
+        startActivityForResult(signUp, SIGN_IN_SIGN_OUT);
 
     }
 
@@ -104,8 +158,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void openGameActivity(View view) {
         Intent game = new Intent(this, GameActivity.class);
-        //String userNameInput = userName.getText().toString();
-        //game.putExtra(INPUT_DATA_KEY, userNameInput);
         startActivity(game);
     }
 
