@@ -22,10 +22,4 @@ public class GameActivity extends AppCompatActivity {
 //        textView = findViewById(R.id.inputUserName);
 //        textView.setText(userName);
     }
-
-    public void createACard(View view) {
-        Intent createACard = new Intent(this, CreateCardActivity.class);
-        startActivity(createACard);
-    }
-
 }

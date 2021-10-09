@@ -3,7 +3,6 @@ package il.ac.hit;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,7 +29,7 @@ public class WordDialog extends AppCompatDialogFragment {
                 .setPositiveButton("Create", (dialog, which) -> {
                     String word = wordCreator.getText().toString();
                     String translation = translationCreator.getText().toString();
-                    listener.applyWord(word, translation);
+                    listener.saveCardToDB(word, translation);
                 });
 
         wordCreator = view.findViewById(R.id.enter_word_dialog);
@@ -51,6 +50,6 @@ public class WordDialog extends AppCompatDialogFragment {
     }
 
     public interface WordDialogListener{
-        void applyWord(String word, String translation);
+        void saveCardToDB(String word, String translation);
     }
 }

@@ -20,12 +20,18 @@ import android.widget.Toast;
 
 import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Locale;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements WordDialog.WordDialogListener{
     private static final int SIGN_IN_CREATE = 1;
     private static final int SIGN_IN_SIGN_OUT = 2;
+    private FirebaseDatabase database;
+    private DatabaseReference myRef;
+    private FirebaseUser mCurrentUser;
 
     public enum languageChoosing{
         Hebrew,
@@ -87,11 +93,6 @@ public class MainActivity extends AppCompatActivity {
         setLocale(language);
     }
 
-    //
-//    FirebaseDatabase database = FirebaseDatabase.getInstance();
-//    DatabaseReference myRef = database.getReference("message");
-//
-//    myRef.setValue("Hello, World!");
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data){
         super.onActivityResult(requestCode, resultCode, data);
@@ -116,16 +117,20 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+
     private void showDetails(boolean flag){
         if (flag) {
             String userDetails = "Hello, your name is " +
                     FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
             Toast.makeText(this, userDetails, Toast.LENGTH_LONG).show();
+            mCurrentUser = FirebaseAuth.getInstance().getCurrentUser();
+            database = FirebaseDatabase.getInstance();
         }
         else{
                 Toast.makeText(this, "Sign In Failed", Toast.LENGTH_LONG).show();
             }
     }
+
     private void afterSignOut(){
         Intent signUp = AuthUI.getInstance().createSignInIntentBuilder().build();
         startActivityForResult(signUp, SIGN_IN_SIGN_OUT);
@@ -164,5 +169,23 @@ public class MainActivity extends AppCompatActivity {
     public void openScoreActivity(View view) {
         Intent scoreTable = new Intent(this, ScoreActivity.class);
         startActivity(scoreTable);
+    }
+
+    public void createACard(View view) {
+        openDialog();
+    }
+
+    public void openDialog() {
+        WordDialog wordDialog = new WordDialog();
+        wordDialog.show(getSupportFragmentManager(), "Create a Card");
+    }
+
+    @Override
+    public void saveCardToDB(String word, String translation) {
+        Card card = new Card();
+        card.setWord(word);
+        card.setTranslation(translation);
+        myRef = database.getReference().child("users").child(mCurrentUser.getUid()).child("cards");
+        myRef.push().setValue(card);
     }
 }
