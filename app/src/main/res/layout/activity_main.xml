@@ -42,7 +42,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnCreateCard" />
+        app:layout_constraintTop_toBottomOf="@+id/btnDisplayCards" />
 
     <Button
         android:id="@+id/change_language"
@@ -51,6 +51,7 @@
         android:layout_marginTop="8dp"
         android:text="@string/change_language"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/scoreTable" />
 
@@ -64,5 +65,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/startGame" />
+
+    <Button
+        android:id="@+id/btnDisplayCards"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/display_cards"
+        android:onClick="openDisplayCardsActivity"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnCreateCard" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

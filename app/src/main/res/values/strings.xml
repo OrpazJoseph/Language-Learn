@@ -12,5 +12,13 @@
     <string name="enter_translation">Enter Translation CHECK</string>
     <string name="name">name</string>
     <string name="change_language">Change Language</string>
+    <string name="translation_game">Enter a Translation</string>
+    <string name="display_cards">Display Cards</string>
+    <string name="wrong_answer">Maybe next time :(</string>
+    <string name="correct_answer">Good Job!</string>
+    <string name="empty_word">Can not add empty word</string>
+    <string name="empty_translation">Can not add empty translation</string>
+    <string name="show_next_card">Show next card!</string>
+
 
 </resources>

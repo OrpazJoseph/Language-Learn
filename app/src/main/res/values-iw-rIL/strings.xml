@@ -13,5 +13,13 @@
     <string name="enter_translation">הכנס תרגום בדיקה</string>
     <string name="name">שם</string>
     <string name="change_language">בחר שפה</string>
+    <string name="translation_game">הכנס תרגום</string>
+    <string name="display_cards">הצג כרטיסיות</string>
+    <string name="wrong_answer">טעות :(</string>
+    <string name="correct_answer">עבודה טובה!</string>
+    <string name="empty_word">אין אפשרות להוסיף מילה ריקה</string>
+    <string name="empty_translation">אין אפשרות להוסיף תרגום ריק</string>
+    <string name="show_next_card">הצג את הכרטיס הבא!</string>
+
 
 </resources>
