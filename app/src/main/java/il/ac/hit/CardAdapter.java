@@ -51,10 +51,9 @@ public class CardAdapter extends FirebaseRecyclerAdapter<Card, CardAdapter.CardV
             @Override
             public void onClick(View v) {
             // TODO: dialog show keep crashing the app, need to understand why
-
-                openDialog();
+//                openDialog();
                 WordDialog wordDialog = new WordDialog();
-                assert wordDialog.getFragmentManager() != null;
+//                assert wordDialog.getFragmentManager() != null;
                 wordDialog.show(wordDialog.getFragmentManager(), "Update Card");
 
                 Map<String, Object> map = new HashMap<>();
@@ -75,9 +74,7 @@ public class CardAdapter extends FirebaseRecyclerAdapter<Card, CardAdapter.CardV
                             @Override
                             public void onFailure(@NonNull Exception e) {
                                 Toast.makeText(cardViewHolder.editButton.getContext(), "Card Updated successfully!", Toast.LENGTH_LONG).show();
-
                             }
-
             });
             }
     });
@@ -102,11 +99,8 @@ public class CardAdapter extends FirebaseRecyclerAdapter<Card, CardAdapter.CardV
     }
 
     public void openDialog() {
-
-
-
         WordDialog wordDialog = new WordDialog();
-        assert wordDialog.getFragmentManager() != null;
+//        assert wordDialog.getFragmentManager() != null;
         //wordDialog.show(wordDialog.getFragmentManager(), "Update Card");
         wordDialog.show();
     }

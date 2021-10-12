@@ -1,6 +1,8 @@
 package il.ac.hit;
 
+import android.animation.Animator;
 import android.animation.AnimatorInflater;
+import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.media.MediaParser;
 import android.media.MediaPlayer;
@@ -126,9 +128,21 @@ public class GameActivity extends AppCompatActivity {
 
     public void nextCard(View view) {
         // TODO: make it choose another card than the current one
-        // TODO: make the card display appear as FRONT
         getListFromDB();
-//        frontAnimator.setTarget(cardFront);
-//        backAnimator.setTarget(cardBack);
+        if (!isFront){
+            cardBack.setVisibility(View.INVISIBLE);
+            frontAnimator.setTarget(cardBack);
+            backAnimator.setTarget(cardFront);
+            frontAnimator.start();
+            backAnimator.start();
+            isFront = !isFront;
+            backAnimator.addListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    super.onAnimationEnd(animation);
+                    cardBack.setVisibility(View.VISIBLE);
+                }
+            });
+        }
     }
 }
