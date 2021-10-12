@@ -33,6 +33,7 @@ public class GameActivity extends AppCompatActivity {
     FirebaseUser mCurrentUser;
     List<Card> mCardList;
     Random rand;
+    Card randomCard;
 
     // Animation for Card reveal
     TextView cardFront;
@@ -104,8 +105,10 @@ public class GameActivity extends AppCompatActivity {
                 mCardList.clear();
                 for (DataSnapshot ds : snapshot.getChildren()) {
                     mCardList.add(ds.getValue(Card.class));
+                    //if (ds.getValue(Card.class) != randomCard) {
+                        //mCardList.add(ds.getValue(Card.class));
+                   // }
                 }
-
                 setRandomCard();
             }
             @Override
@@ -116,9 +119,10 @@ public class GameActivity extends AppCompatActivity {
 
     private void setRandomCard() {
         rand = new Random();
-        Card randomCard = mCardList.get(rand.nextInt(mCardList.size()));
+        randomCard = mCardList.get(rand.nextInt(mCardList.size()));
         cardFront.setText(randomCard.getWord());
         cardBack.setText(randomCard.getTranslation());
+        //mCardList.remove(randomCard);
     }
 
     public void nextCard(View view) {
@@ -140,4 +144,6 @@ public class GameActivity extends AppCompatActivity {
             });
         }
     }
+
+
 }

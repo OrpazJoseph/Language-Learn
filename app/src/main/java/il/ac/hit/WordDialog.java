@@ -13,6 +13,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
+import java.util.Objects;
+
 public class WordDialog extends AppCompatDialogFragment {
     private EditText wordCreator;
     private EditText translationCreator;
@@ -23,7 +25,7 @@ public class WordDialog extends AppCompatDialogFragment {
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         builder = new AlertDialog.Builder(getActivity());
 
-        LayoutInflater inflater = getActivity().getLayoutInflater();
+        LayoutInflater inflater = requireActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.layout_dialog, null);
 
         builder.setView(view).setTitle("Create a Card")
@@ -60,10 +62,6 @@ public class WordDialog extends AppCompatDialogFragment {
             throw new ClassCastException(context.toString() +
                     "Error");
         }
-    }
-
-    public void show() {
-        builder.show();
     }
 
     public interface WordDialogListener{
