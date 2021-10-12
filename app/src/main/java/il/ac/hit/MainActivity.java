@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
@@ -24,12 +23,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Locale;
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity implements WordDialog.WordDialogListener {
     private static final int SIGN_IN_CREATE = 1;
     private static final int SIGN_IN_SIGN_OUT = 2;
     private FirebaseDatabase database;
-    private DatabaseReference myRef;
     private FirebaseUser mCurrentUser;
 
     public enum languageChoosing {
@@ -114,7 +113,7 @@ public class MainActivity extends AppCompatActivity implements WordDialog.WordDi
     private void showDetails(boolean flag) {
         if (flag) {
             String userDetails = "Hello " +
-                    FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
+                    Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getDisplayName();
             Toast.makeText(this, userDetails, Toast.LENGTH_LONG).show();
             mCurrentUser = FirebaseAuth.getInstance().getCurrentUser();
             database = FirebaseDatabase.getInstance();
@@ -182,7 +181,7 @@ public class MainActivity extends AppCompatActivity implements WordDialog.WordDi
         Card card = new Card();
         card.setWord(word);
         card.setTranslation(translation);
-        myRef = database.getReference().child("users").child(mCurrentUser.getUid()).child("cards");
+        DatabaseReference myRef = database.getReference().child("users").child(mCurrentUser.getUid()).child("cards");
         myRef.push().setValue(card);
     }
 }

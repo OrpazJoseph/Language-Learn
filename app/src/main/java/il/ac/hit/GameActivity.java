@@ -4,10 +4,8 @@ import android.animation.Animator;
 import android.animation.AnimatorInflater;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
-import android.media.MediaParser;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.os.Environment;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -67,37 +65,34 @@ public class GameActivity extends AppCompatActivity {
 
         frontAnimator = (AnimatorSet) AnimatorInflater.loadAnimator(getApplicationContext(), R.animator.front_animator);
         backAnimator = (AnimatorSet) AnimatorInflater.loadAnimator(getApplicationContext(), R.animator.back_animator);
-        btnCheckAnswer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(isFront){
-                    frontAnimator.setTarget(cardFront);
-                    backAnimator.setTarget(cardBack);
-                    String answer = etAnswer.getText().toString().trim().toLowerCase();
-                    String back = cardBack.getText().toString().trim().toLowerCase();
-                    String message;
-                    final MediaPlayer mediaPlayer;
-                    if (answer.equals(back)){
-                        message = getString(R.string.correct_answer);
-                        // TODO: check if the correct message audio is bugged or not
-                        mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.correct);
-                    } else {
-                        message = getString(R.string.wrong_answer);
-                        mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.wrong);
-                    }
-                    mediaPlayer.start();
-                    etAnswer.setText("");
-                    Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+        btnCheckAnswer.setOnClickListener(v -> {
+            if(isFront){
+                frontAnimator.setTarget(cardFront);
+                backAnimator.setTarget(cardBack);
+                String answer = etAnswer.getText().toString().trim().toLowerCase();
+                String back = cardBack.getText().toString().trim().toLowerCase();
+                String message;
+                final MediaPlayer mediaPlayer;
+                if (answer.equals(back)){
+                    message = getString(R.string.correct_answer);
+                    // TODO: check if the correct message audio is bugged or not
+                    mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.correct);
+                } else {
+                    message = getString(R.string.wrong_answer);
+                    mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.wrong);
                 }
-                else{
-                    frontAnimator.setTarget(cardBack);
-                    backAnimator.setTarget(cardFront);
-                }
-
-                frontAnimator.start();
-                backAnimator.start();
-                isFront = !isFront;
+                mediaPlayer.start();
+                etAnswer.setText("");
+                Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
             }
+            else{
+                frontAnimator.setTarget(cardBack);
+                backAnimator.setTarget(cardFront);
+            }
+
+            frontAnimator.start();
+            backAnimator.start();
+            isFront = !isFront;
         });
     }
 

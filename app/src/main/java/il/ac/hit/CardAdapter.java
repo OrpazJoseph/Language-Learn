@@ -1,27 +1,19 @@
 package il.ac.hit;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -36,48 +28,34 @@ public class CardAdapter extends FirebaseRecyclerAdapter<Card, CardAdapter.CardV
         super(options);
     }
     FirebaseUser mCurrentUser;
-    DatabaseReference myRef;
     FirebaseDatabase database;
     DatabaseReference dbRef;
-    private EditText wordCreator;
-    private EditText translationCreator;
 
     @Override
     protected void onBindViewHolder(CardViewHolder cardViewHolder, @SuppressLint("RecyclerView") int i, Card card) {
         cardViewHolder.word.setText(card.getWord());
         cardViewHolder.translation.setText(card.getTranslation());
 
-        cardViewHolder.editButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-            // TODO: dialog show keep crashing the app, need to understand why
-//                openDialog();
-                WordDialog wordDialog = new WordDialog();
-//                assert wordDialog.getFragmentManager() != null;
-                wordDialog.show(wordDialog.getFragmentManager(), "Update Card");
+        cardViewHolder.editButton.setOnClickListener(v -> {
+        // TODO: dialog show keep crashing the app, need to understand why
+            //  openDialog();
+            WordDialog wordDialog = new WordDialog();
+            assert wordDialog.getFragmentManager() != null;
+            wordDialog.show(wordDialog.getFragmentManager(), "Update Card");
 
-                Map<String, Object> map = new HashMap<>();
-                map.put("word", cardViewHolder.word.getText().toString());
-                map.put("translation", cardViewHolder.translation.getText().toString());
-                mCurrentUser = FirebaseAuth.getInstance().getCurrentUser();
-                database = FirebaseDatabase.getInstance();
-                dbRef = database.getReference().child("users").child(mCurrentUser.getUid()).child("cards")
-                        .child(getRef(i).getKey());
-                dbRef.updateChildren(map).addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void unused) {
-                                Toast.makeText(cardViewHolder.editButton.getContext(), "Card Updated successfully!", Toast.LENGTH_LONG).show();
-                                wordDialog.dismiss();
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(cardViewHolder.editButton.getContext(), "Card Updated successfully!", Toast.LENGTH_LONG).show();
-                            }
-            });
-            }
-    });
+            Map<String, Object> map = new HashMap<>();
+            map.put("word", cardViewHolder.word.getText().toString());
+            map.put("translation", cardViewHolder.translation.getText().toString());
+            mCurrentUser = FirebaseAuth.getInstance().getCurrentUser();
+            database = FirebaseDatabase.getInstance();
+            dbRef = database.getReference().child("users").child(mCurrentUser.getUid()).child("cards")
+                    .child(Objects.requireNonNull(getRef(i).getKey()));
+            dbRef.updateChildren(map).addOnSuccessListener(unused -> {
+                Toast.makeText(cardViewHolder.editButton.getContext(), "Card Updated successfully!", Toast.LENGTH_LONG).show();
+                wordDialog.dismiss();
+            })
+                    .addOnFailureListener(e -> Toast.makeText(cardViewHolder.editButton.getContext(), "Card Updated successfully!", Toast.LENGTH_LONG).show());
+        });
 
         cardViewHolder.deleteButton.setOnClickListener(v -> {
             AlertDialog.Builder deleteDialog = new AlertDialog.Builder(cardViewHolder.deleteButton.getContext());
@@ -100,8 +78,8 @@ public class CardAdapter extends FirebaseRecyclerAdapter<Card, CardAdapter.CardV
 
     public void openDialog() {
         WordDialog wordDialog = new WordDialog();
-//        assert wordDialog.getFragmentManager() != null;
-        //wordDialog.show(wordDialog.getFragmentManager(), "Update Card");
+        assert wordDialog.getFragmentManager() != null;
+        wordDialog.show(wordDialog.getFragmentManager(), "Update Card");
         wordDialog.show();
     }
 

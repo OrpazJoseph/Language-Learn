@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -13,13 +12,15 @@
         android:hint="@string/translation_game"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/card_front" />
+        app:layout_constraintTop_toBottomOf="@+id/card_front"
+        android:importantForAutofill="no"
+        android:inputType="text" />
 
     <Button
         android:id="@+id/check_answer"
         android:layout_width="255dp"
         android:layout_height="wrap_content"
-        android:text="Check Your Answer"
+        android:text="@string/check_answer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/translation" />
@@ -31,7 +32,6 @@
         android:layout_marginTop="36dp"
         android:background="@color/cardview_shadow_start_color"
         android:gravity="center"
-        android:text="Front"
         android:textAlignment="center"
         android:textSize="22sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -47,7 +47,6 @@
         android:alpha="0"
         android:background="@color/cardview_shadow_end_color"
         android:gravity="center"
-        android:text="Back"
         android:textAlignment="center"
         android:textSize="22sp"
         app:layout_constraintEnd_toEndOf="parent"

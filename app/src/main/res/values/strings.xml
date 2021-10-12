@@ -19,6 +19,7 @@
     <string name="empty_word">Can not add empty word</string>
     <string name="empty_translation">Can not add empty translation</string>
     <string name="show_next_card">Show next card!</string>
+    <string name="check_answer">Check Your Answer</string>
 
 
 </resources>
