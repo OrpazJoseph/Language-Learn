@@ -19,8 +19,11 @@ import android.widget.Toast;
 import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.Locale;
 import java.util.Objects;
@@ -49,6 +52,23 @@ public class MainActivity extends AppCompatActivity implements WordDialog.WordDi
         } else {
             showDetails(true);
         }
+    }
+
+    private void createScoreIfNotExist() {
+        DatabaseReference scoreRef = database.getReference().child("users").child(mCurrentUser.getUid()).child("score");
+        scoreRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(!snapshot.exists()){
+                    scoreRef.setValue(0);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     private void showChangeLanguageDialog() {
@@ -117,6 +137,8 @@ public class MainActivity extends AppCompatActivity implements WordDialog.WordDi
             Toast.makeText(this, userDetails, Toast.LENGTH_LONG).show();
             mCurrentUser = FirebaseAuth.getInstance().getCurrentUser();
             database = FirebaseDatabase.getInstance();
+            createScoreIfNotExist();
+
         } else {
             Toast.makeText(this, "Sign In Failed", Toast.LENGTH_LONG).show();
         }

@@ -34,6 +34,7 @@ public class GameActivity extends AppCompatActivity {
     List<Card> mCardList;
     Random rand;
     Card randomCard;
+    TextView tvScore;
     int mScore;
 
     // Animation for Card reveal
@@ -57,7 +58,7 @@ public class GameActivity extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
 
         getListFromDB();
-        // TODO: Get score from DB.
+        getScoreFromDB();
 
         float density = getApplicationContext().getResources().getDisplayMetrics().density;
         cardFront = findViewById(R.id.card_front);
@@ -65,6 +66,7 @@ public class GameActivity extends AppCompatActivity {
         btnCheckAnswer = findViewById(R.id.check_answer);
         btnNextCard = findViewById(R.id.btn_next_card);
         etAnswer = findViewById(R.id.translation);
+        tvScore = findViewById(R.id.tvScore);
         cardFront.setCameraDistance(8000 * density);
         cardBack.setCameraDistance(8000 * density);
 
@@ -80,6 +82,7 @@ public class GameActivity extends AppCompatActivity {
                 final MediaPlayer mediaPlayer;
                 if (answer.equals(back)){
                     mScore += 100;
+                    tvScore.setText(getString(R.string.score) + " " + mScore);
                     message = getString(R.string.correct_answer);
                     mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.correct);
                 } else {
@@ -99,6 +102,20 @@ public class GameActivity extends AppCompatActivity {
             backAnimator.start();
             btnCheckAnswer.setEnabled(false);
             isFront = !isFront;
+        });
+    }
+
+    private void getScoreFromDB() {
+        DatabaseReference scoreRef = database.getReference().child("users").child(mCurrentUser.getUid()).child("score");
+        scoreRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                mScore = snapshot.getValue(Integer.class);
+                tvScore.setText(getString(R.string.score) + " " + mScore);
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
         });
     }
 
@@ -161,6 +178,7 @@ public class GameActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        // TODO: Save score to DB.
+        DatabaseReference scoreRef = database.getReference().child("users").child(mCurrentUser.getUid()).child("score");
+        scoreRef.setValue(mScore);
     }
 }
