@@ -32,6 +32,7 @@ public class DisplayCardsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_cards);
+        setTitle(getString(R.string.display_cards_activity_title));
 
         mCurrentUser = FirebaseAuth.getInstance().getCurrentUser();
         database = FirebaseDatabase.getInstance();

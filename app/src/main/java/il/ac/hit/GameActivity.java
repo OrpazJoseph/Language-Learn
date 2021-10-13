@@ -34,12 +34,14 @@ public class GameActivity extends AppCompatActivity {
     List<Card> mCardList;
     Random rand;
     Card randomCard;
+    int mScore;
 
     // Animation for Card reveal
     TextView cardFront;
     TextView cardBack;
     EditText etAnswer;
     Button btnCheckAnswer;
+    Button btnNextCard;
     AnimatorSet frontAnimator;
     AnimatorSet backAnimator;
     boolean isFront = true;
@@ -55,11 +57,13 @@ public class GameActivity extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
 
         getListFromDB();
+        // TODO: Get score from DB.
 
         float density = getApplicationContext().getResources().getDisplayMetrics().density;
         cardFront = findViewById(R.id.card_front);
         cardBack = findViewById(R.id.card_back);
         btnCheckAnswer = findViewById(R.id.check_answer);
+        btnNextCard = findViewById(R.id.btn_next_card);
         etAnswer = findViewById(R.id.translation);
         cardFront.setCameraDistance(8000 * density);
         cardBack.setCameraDistance(8000 * density);
@@ -75,8 +79,8 @@ public class GameActivity extends AppCompatActivity {
                 String message;
                 final MediaPlayer mediaPlayer;
                 if (answer.equals(back)){
+                    mScore += 100;
                     message = getString(R.string.correct_answer);
-                    // TODO: check if the correct message audio is bugged or not
                     mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.correct);
                 } else {
                     message = getString(R.string.wrong_answer);
@@ -93,6 +97,7 @@ public class GameActivity extends AppCompatActivity {
 
             frontAnimator.start();
             backAnimator.start();
+            btnCheckAnswer.setEnabled(false);
             isFront = !isFront;
         });
     }
@@ -105,9 +110,6 @@ public class GameActivity extends AppCompatActivity {
                 mCardList.clear();
                 for (DataSnapshot ds : snapshot.getChildren()) {
                     mCardList.add(ds.getValue(Card.class));
-                    //if (ds.getValue(Card.class) != randomCard) {
-                        //mCardList.add(ds.getValue(Card.class));
-                   // }
                 }
                 setRandomCard();
             }
@@ -118,16 +120,27 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private void setRandomCard() {
-        rand = new Random();
-        randomCard = mCardList.get(rand.nextInt(mCardList.size()));
-        cardFront.setText(randomCard.getWord());
-        cardBack.setText(randomCard.getTranslation());
-        //mCardList.remove(randomCard);
+        int size = mCardList.size();
+
+        if (size == 0){
+            btnCheckAnswer.setEnabled(false);
+            btnNextCard.setEnabled(false);
+            Toast.makeText(getApplicationContext(), getString(R.string.no_cards), Toast.LENGTH_LONG).show();
+        } else {
+            btnCheckAnswer.setEnabled(true);
+            btnNextCard.setEnabled(true);
+            rand = new Random();
+            int cardInx = rand.nextInt(size);
+            randomCard = mCardList.get(cardInx);
+            cardFront.setText(randomCard.getWord());
+            cardBack.setText(randomCard.getTranslation());
+            mCardList.remove(cardInx);
+        }
     }
 
     public void nextCard(View view) {
         // TODO: make it choose another card than the current one
-        getListFromDB();
+        setRandomCard();
         if (!isFront){
             cardBack.setVisibility(View.INVISIBLE);
             frontAnimator.setTarget(cardBack);
@@ -145,5 +158,9 @@ public class GameActivity extends AppCompatActivity {
         }
     }
 
-
+    @Override
+    protected void onStop() {
+        super.onStop();
+        // TODO: Save score to DB.
+    }
 }

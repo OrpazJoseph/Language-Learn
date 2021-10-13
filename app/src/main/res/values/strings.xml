@@ -20,6 +20,8 @@
     <string name="empty_translation">Can not add empty translation</string>
     <string name="show_next_card">Show next card!</string>
     <string name="check_answer">Check Your Answer</string>
+    <string name="display_cards_activity_title">Cards List</string>
+    <string name="no_cards">You don\'t have any more cards.</string>
 
 
 </resources>

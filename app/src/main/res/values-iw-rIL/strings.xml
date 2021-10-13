@@ -20,6 +20,7 @@
     <string name="empty_word">אין אפשרות להוסיף מילה ריקה</string>
     <string name="empty_translation">אין אפשרות להוסיף תרגום ריק</string>
     <string name="show_next_card">הצג את הכרטיס הבא!</string>
+    <string name="check_answer">בדוק תשובה</string>
 
 
 </resources>

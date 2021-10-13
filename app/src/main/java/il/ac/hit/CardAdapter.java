@@ -59,7 +59,7 @@ public class CardAdapter extends FirebaseRecyclerAdapter<Card, CardAdapter.CardV
             LayoutInflater inflater = (LayoutInflater) v.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             getTextHelper = inflater.inflate(R.layout.layout_dialog, null);
 
-            builder.setView(getTextHelper).setTitle("Create a Card")
+            builder.setView(getTextHelper).setTitle("Edit a Card")
                     .setNegativeButton("Cancel", (dialog, which) -> {})
                     .setPositiveButton("Update", (dialog, which) -> {
                         if (wordCreator.getText().toString().length() == 0) {
