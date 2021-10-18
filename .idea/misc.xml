@@ -14,9 +14,10 @@
         <entry key="..\:/myLibraries/Documents/Android/Language-Learn/app/src/main/res/layout/activity_display_cards.xml" value="0.1796875" />
         <entry key="..\:/myLibraries/Documents/Android/Language-Learn/app/src/main/res/layout/activity_game.xml" value="0.3333333333333333" />
         <entry key="..\:/myLibraries/Documents/Android/Language-Learn/app/src/main/res/layout/activity_main.xml" value="0.3333333333333333" />
-        <entry key="..\:/myLibraries/Documents/Android/Language-Learn/app/src/main/res/layout/activity_score.xml" value="0.1" />
-        <entry key="..\:/myLibraries/Documents/Android/Language-Learn/app/src/main/res/layout/card.xml" value="0.5" />
+        <entry key="..\:/myLibraries/Documents/Android/Language-Learn/app/src/main/res/layout/activity_score.xml" value="0.16666666666666666" />
+        <entry key="..\:/myLibraries/Documents/Android/Language-Learn/app/src/main/res/layout/card.xml" value="0.4466666666666667" />
         <entry key="..\:/myLibraries/Documents/Android/Language-Learn/app/src/main/res/layout/layout_dialog.xml" value="0.1" />
+        <entry key="..\:/myLibraries/Documents/Android/Language-Learn/app/src/main/res/layout/score.xml" value="0.4466666666666667" />
       </map>
     </option>
   </component>

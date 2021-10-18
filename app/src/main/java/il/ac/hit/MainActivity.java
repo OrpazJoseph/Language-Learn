@@ -71,6 +71,23 @@ public class MainActivity extends AppCompatActivity implements WordDialog.WordDi
         });
     }
 
+    private void createNameIfNotExist() {
+        DatabaseReference nameRef = database.getReference().child("users").child(mCurrentUser.getUid()).child("name");
+        nameRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(!snapshot.exists()){
+                    nameRef.setValue(mCurrentUser.getDisplayName());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
     private void showChangeLanguageDialog() {
         final String[] languageItems = {"English", "עברית"};
         AlertDialog.Builder languageDialog = new AlertDialog.Builder(this);
@@ -138,6 +155,7 @@ public class MainActivity extends AppCompatActivity implements WordDialog.WordDi
             mCurrentUser = FirebaseAuth.getInstance().getCurrentUser();
             database = FirebaseDatabase.getInstance();
             createScoreIfNotExist();
+            createNameIfNotExist();
 
         } else {
             Toast.makeText(this, "Sign In Failed", Toast.LENGTH_LONG).show();
