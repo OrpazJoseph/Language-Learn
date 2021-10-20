@@ -37,23 +37,7 @@ public class ScoreActivity extends AppCompatActivity {
         usersRef = database.getReference().child("users");
         arrayList = new ArrayList<>();
 
-
         getScoreListFromDB();
-
-
-
-
-
-
-//        List<String> scoreList = new ArrayList<>();
-//        scoreList.add("Moshe");
-//        scoreList.add("Ron");
-//        scoreList.add("Tomer");
-//
-//
-//        ArrayAdapter<String> arrayAdapter;
-//        arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, scoreList);
-//        scoreTable.setAdapter(arrayAdapter);
     }
 
     private void getScoreListFromDB(){

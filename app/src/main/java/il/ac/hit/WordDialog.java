@@ -13,8 +13,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
-import java.util.Objects;
-
 public class WordDialog extends AppCompatDialogFragment {
     private EditText wordCreator;
     private EditText translationCreator;

@@ -149,9 +149,6 @@ public class MainActivity extends AppCompatActivity implements WordDialog.WordDi
 
     private void showDetails(boolean flag) {
         if (flag) {
-            String userDetails = "Hello " +
-                    Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getDisplayName();
-            Toast.makeText(this, userDetails, Toast.LENGTH_LONG).show();
             mCurrentUser = FirebaseAuth.getInstance().getCurrentUser();
             database = FirebaseDatabase.getInstance();
             createScoreIfNotExist();

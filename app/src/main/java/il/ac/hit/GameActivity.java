@@ -156,7 +156,6 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void nextCard(View view) {
-        // TODO: make it choose another card than the current one
         setRandomCard();
         if (!isFront){
             cardBack.setVisibility(View.INVISIBLE);
