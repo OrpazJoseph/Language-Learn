@@ -14,4 +14,4 @@ Project is created with:
 * Android Studio
 * Firebase Realtime Database 
 * Firebase Authentication
-* Supports Hebrew and English menues
+* Supports Hebrew and English menus
